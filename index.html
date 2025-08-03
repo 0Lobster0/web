@@ -1,0 +1,185 @@
+<html>
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <title>我的博客</title> 
+  <link rel="stylesheet" href="style.css"> 
+  <style>
+/* 全局样式 */
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  color: #333333;
+  margin: 0;
+  padding: 0;
+  background-image: url("");
+  
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* 动感背景 */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    /* 页面内容 */
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+  p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 5px #00ffff, 0 0 10px #007fff;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: #000;
+      background: linear-gradient(to right, cyan, blue);
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px cyan, 0 0 20px blue;
+    }
+  /*注意，在此处我们用background-image来添加静态背景图*/}
+header {
+  background-color: #f2f2f2;
+  padding: 20px;
+  text-align: center;
+}
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+nav li {
+  margin: 0 10px;
+}
+main {
+  padding: 20px;
+}
+article {
+  margin-bottom: 30px;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  box-shadow: 0 0 4px rgba(0,0,0,.1);
+}
+article img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+article header {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #e6e6e6;
+}
+article h2 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.5;
+}
+article p {
+  margin: 10px 0 0;
+  font-size: 14px;
+}
+article section {
+  padding: 20px;
+}
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f2f2f2;
+}
+
+</style> 
+  <script src="js/jq.js"></script> 
+ </head> 
+ <!-- 动感背景 --> 
+  <canvas id="background" width="360" height="678"></canvas> 
+  
+ <body id="v1"> 
+  <header id="v2"> 
+   <h1 id="v3">我的博客</h1> 
+   <article id="v4"> 
+    <header id="v5"> 
+     <h2 style="color:#fec8ff;">个人介绍</h2> 
+    <p>大家我是宸辰，一个爱写文言文的作者 虽然不好，但是会更新的我的博客，变得越来越漂亮</p> 
+     <img id="v8" src="https://picsum.photos/seed/picsum/800/400" alt="文章图片"> 
+    </header> 
+   </article> 
+   <script>
+   
+    // 动感背景动画
+    const canvas = document.getElementById('background');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const stars = Array(200).fill().map(() => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 2,
+      dx: (Math.random() - 0.5) * 0.5,
+      dy: (Math.random() - 0.5) * 0.5
+    }));
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'white';
+        ctx.fill();
+        ctx.closePath();
+        
+         // 更新位置
+        star.x += star.dx;
+        star.y += star.dy;
+
+        // 边界处理
+        if (star.x < 0 || star.x > canvas.width) star.dx *= -1;
+        if (star.y < 0 || star.y > canvas.height) star.dy *= -1;
+      });
+      requestAnimationFrame(drawStars);
+    }
+
+    drawStars();
+
+    // 窗口大小改变时调整画布尺寸
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+   <footer id="v9"> 
+    <p id="v10">我的博客 - 版权所有</p> 
+   </footer>  
+  </header>
+ </body>
+</html>
